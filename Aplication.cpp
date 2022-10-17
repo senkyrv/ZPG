@@ -10,6 +10,22 @@ Aplication* Aplication::app = nullptr;
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
 #include <stdlib.h>
 #include <stdio.h>
+
+void Aplication::setCallbacks() {
+	glfwSetCursorPosCallback(
+		window,
+		[](GLFWwindow* window, double mouseXPos, double mouseYPos) -> void {
+			CallbackController::getInstance()->cursorPosCallback(window, mouseXPos,
+				mouseYPos);
+		});
+	glfwSetKeyCallback(window,
+		[](GLFWwindow* window, int key, int scancode, int action,
+			int mods) -> void {
+				CallbackController::getInstance()->keyCallback(
+					window, key, scancode, action, mods);
+		});
+}
+
 void Aplication::Run() {
 
 	prepareForDraw();
@@ -26,40 +42,38 @@ void Aplication::Run() {
 	{ { 0.1f, -0.5f, 0.0f, 1 }, { 1, 0, 1, 1 } },
 	};
 
-
-	//transformationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.3f, 0.0f));
-	//transformationMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(0.5f));
-	//transformationMatrix = glm::rotate(M,90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	scene = new Scene();
 
 	Model* model = new Model(triangle);
 	Model* model2 = new Model(triangle2);
-
-	shader = new Shader();
-
-	DrawableObject* do1 = new DrawableObject(model, shader);
-	DrawableObject* do2 = new DrawableObject(model2, shader);
 
 	Transformation* t1 = new Transformation();
 	Transformation* t2 = new Transformation();
 
 	t1->scale(0.5f);
-	
+
 	t2->scale(0.5f);
 	t2->translate(glm::vec3(0.0f, 1.0f, 0.0f));
+
+	Shader* shader = new Shader();
+
+	Camera* camera = new Camera();
+	camera->registerShader(shader);
+	CallbackController::getInstance()->registerCamera(camera);
+
+	//DrawableObject* do1 = new DrawableObject(model, shader, t2);
+	//DrawableObject* do2 = new DrawableObject(model2, shader, t1);
+
+	scene->addObject(new DrawableObject(model, shader, t2));
+	scene->addObject(new DrawableObject(model2, shader, t1));
 	
-	Scene* scene = new Scene();
+	setCallbacks();
 
 	while (!glfwWindowShouldClose(window)) {
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		t1->passTransformationMatrix(shader);
-		do1->setAndDraw();
-
-		scene->updateCamera();
-
-		t2->passTransformationMatrix(shader);
-		do2->setAndDraw();
+		scene->render();
 		
 		// update other events like input handling
 		glfwPollEvents();
@@ -71,7 +85,6 @@ void Aplication::Run() {
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
 }
-
 
 Aplication* Aplication::getApp()
 {

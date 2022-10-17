@@ -14,14 +14,15 @@
 class Aplication
 {
 private:
-	static Aplication *app;	
-	Shader *shader;		
+	static Aplication *app;		
 	GLFWwindow* window;
+	Scene* scene;
 
 public:
 	static Aplication* getApp();
 	~Aplication();
 	void prepareForDraw();
 	void Run();
+	void setCallbacks();
 };
 

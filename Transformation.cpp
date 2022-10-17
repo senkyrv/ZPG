@@ -13,15 +13,9 @@ void Transformation::rotate(float angel) {
 	transformationMatrix *= glm::rotate(glm::mat4(1.0f), angel, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
-void  Transformation::passTransformationMatrix(Shader* shader)
-{
-	GLint idModelTransform = glGetUniformLocation(shader->getShaderProgram(), "modelMatrix");
-	if (idModelTransform == -1) {
-		fprintf(stderr, "Model matrix not found \n");
-	}
-	glUniformMatrix4fv(idModelTransform, 1, GL_FALSE, &transformationMatrix[0][0]);
+glm::mat4 Transformation::getMatrix() {
+	return transformationMatrix;
 }
-
 Transformation::Transformation()
 {
 }

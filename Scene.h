@@ -2,19 +2,19 @@
 
 #include <vector>
 
-
+#include "CallbackController.h"
+#include "DrawableObject.h"
 #include "Shader.h"
-#include "CallbackController.h"
-#include "CallbackController.h"
 class Camera;
 class Scene {
 private:
-	// std::vector<Object> objects;
-	Camera* camera;
+	std::vector<DrawableObject*> objects;
+	// Camera *camera;
 
 public:
 	Scene();
 	~Scene();
 	void render();
 	void updateCamera();
+	void addObject(DrawableObject* o);
 };

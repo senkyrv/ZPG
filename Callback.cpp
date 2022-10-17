@@ -50,6 +50,7 @@ CallBack::CallBack(GLFWwindow* window) {
 	glfwSetWindowIconifyCallback(window, window_iconify_callback);
 
 	glfwSetWindowSizeCallback(window, window_size_callback);
+
 }
 CallBack::~CallBack()
 {

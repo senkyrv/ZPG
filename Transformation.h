@@ -1,3 +1,4 @@
+#pragma once
 #include <glm/vec3.hpp> // glm::vec3
 #include <glm/vec4.hpp> // glm::vec4
 #include <glm/mat4x4.hpp> // glm::mat4
@@ -9,13 +10,13 @@
 
 class Transformation {
 private:
-	glm::mat4 transformationMatrix = glm::mat4(1.0f);;
+	glm::mat4 transformationMatrix = glm::mat4(1.0f);
 public:
 	
 	Transformation();
-	void passTransformationMatrix(Shader* shader);
 	void translate(glm::vec3 delta);
 	void scale(float scale);
 	void rotate(float angel);
+	glm::mat4 getMatrix();
 	~Transformation();
 };
