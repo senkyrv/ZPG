@@ -11,6 +11,7 @@
 #include "CallbackController.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "ModelBall.h"
 
 class Aplication
 {

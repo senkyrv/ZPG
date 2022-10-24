@@ -58,11 +58,12 @@ void Aplication::Run() {
 	Shader* shader = new Shader();
 	Camera* camera = new Camera();
 	camera->registerShader(shader);
+
 	CallbackController::getInstance()->registerCamera(camera);
 
-	//DrawableObject* do1 = new DrawableObject(model, shader, t2);
-	//DrawableObject* do2 = new DrawableObject(model2, shader, t1);
-
+	ModelBall* mb = new ModelBall();
+	//DrawableObject* do3 = new DrawableObject(mb, shader, t2);
+	//scene->addObject(do3);
 	scene->addObject(new DrawableObject(model, shader, t2));
 	scene->addObject(new DrawableObject(model2, shader, t1));
 	
