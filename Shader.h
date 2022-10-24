@@ -9,7 +9,6 @@ private:
     GLuint shaderProgram;
 
 public:
-    void updateCamera(Camera* camera);
     const char* vertex_shader =
         "#version 330\n"
         "layout(location=0) in vec4 vp;"
@@ -30,7 +29,9 @@ public:
         "void main () {"
         "fColor = vColor;"
         "}";
+
     Shader();
     ~Shader();
     GLuint getShaderProgram();
+    void refreshCamera(Camera* camera);
 };

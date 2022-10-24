@@ -56,7 +56,6 @@ void Aplication::Run() {
 	t2->translate(glm::vec3(0.0f, 1.0f, 0.0f));
 
 	Shader* shader = new Shader();
-
 	Camera* camera = new Camera();
 	camera->registerShader(shader);
 	CallbackController::getInstance()->registerCamera(camera);

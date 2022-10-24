@@ -39,6 +39,7 @@ void CallBack::button_callback(GLFWwindow* window, int button, int action, int m
 }
 
 CallBack::CallBack(GLFWwindow* window) {
+
 	glfwSetKeyCallback(window, key_callback);
 
 	glfwSetCursorPosCallback(window, cursor_callback);

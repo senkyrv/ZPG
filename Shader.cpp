@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include "Camera.h"
 
-void Shader::updateCamera(Camera* camera) {
+void Shader::refreshCamera(Camera* camera) {
     GLint idProjectionMatrix =
         glGetUniformLocation(shaderProgram, "projectionMatrix");
     if (idProjectionMatrix == -1) {
@@ -16,8 +16,6 @@ void Shader::updateCamera(Camera* camera) {
     }
     glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCameraLookAt()[0][0]);
 }
-
-GLuint Shader::getShaderProgram() { return this->shaderProgram; }
 
 Shader::Shader() {
     // create and compile shaders
@@ -43,6 +41,10 @@ Shader::Shader() {
         delete[] strInfoLog;
         exit(EXIT_FAILURE);
     }
+}
+
+GLuint Shader::getShaderProgram(){ 
+    return this->shaderProgram; 
 }
 
 Shader::~Shader() {}

@@ -5,16 +5,16 @@
 #include "CallbackController.h"
 #include "DrawableObject.h"
 #include "Shader.h"
-class Camera;
+
 class Scene {
 private:
-	std::vector<DrawableObject*> objects;
-	// Camera *camera;
+
+	std::vector<DrawableObject*> drawableObjects;
 
 public:
+
 	Scene();
 	~Scene();
-	void render();
-	void updateCamera();
 	void addObject(DrawableObject* o);
+	void render();
 };

@@ -11,14 +11,17 @@
 #include "CallbackController.h"
 #include "Camera.h"
 #include "Scene.h"
+
 class Aplication
 {
 private:
+
 	static Aplication *app;		
 	GLFWwindow* window;
 	Scene* scene;
 
 public:
+
 	static Aplication* getApp();
 	~Aplication();
 	void prepareForDraw();

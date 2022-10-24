@@ -1,12 +1,12 @@
 #include "Transformation.h"
 
 
-void Transformation::translate(glm::vec3 delta) {
-	transformationMatrix *= glm::translate(glm::mat4(1.0f), delta);
+void Transformation::translate(glm::vec3 pos) {
+	transformationMatrix *= glm::translate(glm::mat4(1.0f), pos);
 }
 
-void Transformation::scale(float scale) {
-	transformationMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+void Transformation::scale(float size) {
+	transformationMatrix *= glm::scale(glm::mat4(1.0f), glm::vec3(size));
 }
 
 void Transformation::rotate(float angel) {
@@ -16,10 +16,10 @@ void Transformation::rotate(float angel) {
 glm::mat4 Transformation::getMatrix() {
 	return transformationMatrix;
 }
+
 Transformation::Transformation()
 {
+	this->transformationMatrix = glm::mat4(1.0f);
 }
 
-Transformation::~Transformation()
-{
-}
+Transformation::~Transformation(){}

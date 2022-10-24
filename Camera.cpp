@@ -4,7 +4,7 @@
 
 void Camera::notifyShaders() {
     for (auto* s : shaders) {
-        s->updateCamera(this);
+        s->refreshCamera(this);
     }
 }
 
@@ -37,7 +37,6 @@ void Camera::adjustTarget(glm::vec2 newMousePos) {
     else if (deltaX < 0) {
         phi -= MOUSE_SENSITIVITY;
     }
-
     if (deltaY > 0) {
         theta += MOUSE_SENSITIVITY;
     }
@@ -52,21 +51,23 @@ void Camera::adjustTarget(glm::vec2 newMousePos) {
 
     notifyShaders();
 }
+
 glm::mat4 Camera::getCameraLookAt() {
     return glm::lookAt(eye, eye + target, up);
 }
 
-void Camera::registerShader(Shader* shader) { shaders.push_back(shader); }
-
 Camera::Camera() {
-    projectionMatrix =
-        glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    projectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
     viewMatrix = glm::lookAt(
         glm::vec3(10, 10, 10),  // Camera is at (4,3,-3), in World Space
         glm::vec3(0, 0, 0),     // and looks at the origin
         glm::vec3(0, 1, 0)      // Head is up (set to 0,-1,0 to look
 
     );
+}
+
+void Camera::registerShader(Shader* shader) {
+    shaders.push_back(shader);
 }
 
 Camera::~Camera() {}
