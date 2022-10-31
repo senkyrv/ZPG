@@ -1,14 +1,12 @@
 #include "Scene.h"
-#include "Camera.h"
 
-void Scene::addObject(DrawableObject* o){
-    drawableObjects.push_back(o);
-    }
-
-void Scene::render() {
+void Scene::draw() {
     for (DrawableObject* o : drawableObjects) {
-        o->setAndDraw();
+        o->draw();
     }
+}
+void Scene::insertToScene(DrawableObject* o) {
+    drawableObjects.push_back(o);
 }
 
 Scene::Scene() {}

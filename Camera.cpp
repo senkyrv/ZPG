@@ -2,54 +2,69 @@
 
 #include "Shader.h"
 
-void Camera::notifyShaders() {
-    for (auto* s : shaders) {
-        s->refreshCamera(this);
-    }
+void Camera::resize(int width, int height) {
+
+    projectionMatrix = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+
 }
 
 void Camera::toFront() {
-    eye += (glm::normalize(target) * MOVEMENT_SPEED);
-    notifyShaders();
+    eye += (glm::normalize(target) * cameraSpeed);
+    printf("%f %f %f\n", eye.x, eye.y, eye.z);
+    notify();
 }
 void Camera::toLeft() {
-    eye += (glm::normalize(glm::cross(target, up)) * -MOVEMENT_SPEED);
-    notifyShaders();
+    eye += (glm::normalize(glm::cross(target, up)) * (- cameraSpeed));
+    notify();
 }
 void Camera::toRight() {
-    eye += (glm::normalize(glm::cross(target, up)) * MOVEMENT_SPEED);
-    notifyShaders();
+    eye += (glm::normalize(glm::cross(target, up)) * cameraSpeed);
+    notify();
 }
 void Camera::toBack() {
-    eye += (-MOVEMENT_SPEED * glm::normalize(target));
-    notifyShaders();
+    eye += (glm::normalize(target) * (- cameraSpeed));
+    notify();
 }
 
-void Camera::adjustTarget(glm::vec2 newMousePos) {
-    float sensitivity = 0.01;
-    float deltaX = oldMousePos.x - newMousePos.x;
-    float deltaY = oldMousePos.y - newMousePos.y;
+void Camera::refreshMousePosition(float newX, float newY) {
 
-    // Horizontal mouse movement changes Phi, and vertical movement changes Theta
-    if (deltaX > 0) {
-        phi += MOUSE_SENSITIVITY;
+    float xpos = static_cast<float>(newX);
+    float ypos = static_cast<float>(newY);
+
+    printf("%f %f %f\n", target.x, target.z, target.y);
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos; 
+    lastX = xpos;
+    lastY = ypos;
+
+    xoffset *= mouseSpeed;
+    yoffset *= mouseSpeed;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if (pitch > 89.0f) {
+        pitch = 89.0f;
     }
-    else if (deltaX < 0) {
-        phi -= MOUSE_SENSITIVITY;
-    }
-    if (deltaY > 0) {
-        theta += MOUSE_SENSITIVITY;
-    }
-    else if (deltaY < 0) {
-        theta -= MOUSE_SENSITIVITY;
+    if (pitch < -89.0f)
+    {
+        pitch = -89.0f;
     }
 
-    oldMousePos = newMousePos;
-    target.x = radius * sin(theta) * cos(phi);
-    target.z = radius * sin(theta) * sin(phi);
-    target.y = radius * cos(theta);
 
-    notifyShaders();
+    glm::vec3 dir;
+    dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    dir.y = sin(glm::radians(pitch));
+    dir.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    target = glm::normalize(dir);
+
+    notify();
+}
+
+void Camera::notify() {
+    for (auto* s : shaders) {
+        s->refreshCamera(this);
+    }
 }
 
 glm::mat4 Camera::getCameraLookAt() {
@@ -58,15 +73,9 @@ glm::mat4 Camera::getCameraLookAt() {
 
 Camera::Camera() {
     projectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-    viewMatrix = glm::lookAt(
-        glm::vec3(10, 10, 10),  // Camera is at (4,3,-3), in World Space
-        glm::vec3(0, 0, 0),     // and looks at the origin
-        glm::vec3(0, 1, 0)      // Head is up (set to 0,-1,0 to look
-
-    );
 }
 
-void Camera::registerShader(Shader* shader) {
+void Camera::attach(Shader* shader) {
     shaders.push_back(shader);
 }
 

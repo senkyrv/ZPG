@@ -2,7 +2,6 @@
 
 ModelBall::ModelBall()
 {
-    int count = 2880;
     GLuint VBO = 0;
     // generate the VBO
     glGenBuffers(1, &VBO);
@@ -24,11 +23,20 @@ ModelBall::ModelBall()
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (GLvoid*)(3 * sizeof(GL_FLOAT)));
 }
 
-GLuint ModelBall::getVAO()
-{
-    return this->VAO;
-}
-
 ModelBall::~ModelBall()
 {
+}
+
+void ModelBall::draw(Shader* shader, Transformation* transformation)
+{
+    glUseProgram(shader->getShaderProgram());
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 2880);  // mode,first,count
+    GLint idModelTransform = glGetUniformLocation(shader->getShaderProgram(), "modelMatrix");
+    if (idModelTransform == -1) {
+        fprintf(stderr, "matrixModel not found \n");
+    }
+    glUniformMatrix4fv(idModelTransform, 1, GL_FALSE,
+        &transformation->getMatrix()[0][0]);
+    glUseProgram(0);
 }

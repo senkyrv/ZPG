@@ -3,16 +3,16 @@
 #include "Model.h"
 #include "Shader.h"
 #include "Transformation.h"
-
+#include "AbstractModel.h"
 class DrawableObject {
 
 private:
-	Model* model;
+	AbstractModel* model;
 	Shader* shader;
 	Transformation* transformation;
 
 public:
-	DrawableObject(Model* model, Shader* shader, Transformation* transformation);
-	void setAndDraw();
+	DrawableObject(AbstractModel* model, Shader* shader, Transformation* transformation);
+	void draw();
 	~DrawableObject();
 };

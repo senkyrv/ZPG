@@ -1,20 +1,14 @@
 #pragma once
-
-#include <vector>
-
-#include "CallbackController.h"
 #include "DrawableObject.h"
-#include "Shader.h"
+#include <vector>
 
 class Scene {
 private:
-
 	std::vector<DrawableObject*> drawableObjects;
 
 public:
-
+	void insertToScene(DrawableObject* o);
+	void draw();
 	Scene();
 	~Scene();
-	void addObject(DrawableObject* o);
-	void render();
 };

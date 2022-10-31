@@ -6,5 +6,5 @@
 int main(void)
 {
 	Aplication* app = Aplication::getApp();
-	app->Run();
+	app->run();
 }

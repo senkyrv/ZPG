@@ -1,41 +1,45 @@
 #pragma once
-
-// Include GLM
 #include <stdio.h>
-
-#include <glm/gtc/matrix_transform.hpp>  // glm::translate, glm::rotate, glm::scale, glm::perspective
-#include <glm/mat4x4.hpp>  // glm::mat4
-#include <glm/vec3.hpp>    // glm::vec3
+#include <glm/gtc/matrix_transform.hpp> 
+#include <glm/mat4x4.hpp>
+#include <glm/vec3.hpp>
 #include <vector>
-
 #include "Shader.h"
-
+#include "Subject.h"
 
 class Shader;
-class Camera {
+class Camera{
 private:
-	glm::vec3 eye = { 10, 10, 10 };
+	const float cameraSpeed = 0.5f;
+	const float mouseSpeed = 0.3f;
+
 	glm::vec3 target = { 0, 0, 0 };
 	glm::vec3 up = { 0, 1, 0 };
-	glm::vec2 oldMousePos = { 400, 300 };
+	float lastX = 400; // center - half of window
+	float lastY = 300;
 	std::vector<Shader*> shaders;
-	float theta = 8.55;
-	float phi = -2.39;
-	float radius = 1;
-	const float MOVEMENT_SPEED = 0.5f;
-	const float MOUSE_SENSITIVITY = 0.02f;
+	float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
+	float pitch = 0.0f;
 
 public:
+
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
+
 	Camera();
 	~Camera();
-	void registerShader(Shader* shader);
+
+	glm::vec3 eye = { 0, 10, 6 };
 	glm::mat4 getCameraLookAt();
-	void notifyShaders();
-	void adjustTarget(glm::vec2 newMousePos);
+
+
 	void toFront();
 	void toLeft();
 	void toRight();
 	void toBack();
+
+	void refreshMousePosition(float newX, float newY);
+	void attach(Shader* shader);
+	void resize(int width, int height);
+	void notify();
 };

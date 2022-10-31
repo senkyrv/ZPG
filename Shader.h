@@ -2,11 +2,11 @@
 #include <GL/glew.h>
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "ShaderLoader.h"
 class Camera;
-class Shader {
+class Shader : public ShaderLoader{
 private:
-    GLuint shaderProgram;
+    GLuint shaderProgramId;
 
 public:
     const char* vertex_shader =
@@ -30,7 +30,7 @@ public:
         "fColor = vColor;"
         "}";
 
-    Shader();
+    Shader(const char* vertexFile, const char* fragmentFile);
     ~Shader();
     GLuint getShaderProgram();
     void refreshCamera(Camera* camera);

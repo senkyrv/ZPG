@@ -3,16 +3,16 @@
 #include <glm/vec4.hpp> 
 #include <vector>
 #include "sphere.h"
+#include "AbstractModel.h"
 
-class ModelBall
+
+class ModelBall : public AbstractModel
 {
-private:
-	//std::vector model[];
-	GLuint VAO = 0;
+
 public:
 	ModelBall();
 	~ModelBall();
-	GLuint getVAO();
+	void draw(Shader* shader, Transformation* transformation) override;
 
 };
 

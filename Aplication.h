@@ -3,15 +3,22 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "Callback.h"
-#include "Shader.h"
+
 #include "Model.h"
-#include "DrawableObject.h"
 #include "Transformation.h"
 #include "CallbackController.h"
 #include "Camera.h"
+#include "DrawableObject.h"
 #include "Scene.h"
+#include "Callback.h"
+#include "Shader.h"
+
 #include "ModelBall.h"
+#include "ModelSuzi.h"
+#include "ModelBush.h"
+#include "ModelGift.h"
+#include "ModelTree.h"
+#include "ModelPlain.h"
 
 class Aplication
 {
@@ -25,8 +32,9 @@ public:
 
 	static Aplication* getApp();
 	~Aplication();
-	void prepareForDraw();
-	void Run();
-	void setCallbacks();
+
+	void setUpWindow();
+	void run();
+	void applyCallbacks();
 };
 
