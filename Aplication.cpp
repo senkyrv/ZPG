@@ -71,32 +71,32 @@ void Aplication::run() {
 	//scene->addObject(new DrawableObject(model2, shader, t1));
 	
 	//Phong 1 test + 2 test
-	Shader* shader = new Shader("phongVertex.txt", "phongFragment.txt");
+	Shader* shader = new Shader("phongVertex.txt", "phongFragmentLight.txt");
 	camera->attach(shader);
 	Transformation* t1 = new Transformation();
-	//Transformation* t2 = new Transformation();
-	//Transformation* t3 = new Transformation();
-	//Transformation* t4 = new Transformation();
+	Transformation* t2 = new Transformation();
+	Transformation* t3 = new Transformation();
+	Transformation* t4 = new Transformation();
 
 	t1->translate(glm::vec3(1.4f, 0.0f, 1.4f));
-	//t2->translate(glm::vec3(-1.4f, 0.0f, 1.4f));
-	//t3->translate(glm::vec3(1.4f, 0.0f, -1.4f));
-	//t4->translate(glm::vec3(-1.4f, 0.0f, -1.4f));
+	t2->translate(glm::vec3(-1.4f, 0.0f, 1.4f));
+	t3->translate(glm::vec3(1.4f, 0.0f, -1.4f));
+	t4->translate(glm::vec3(-1.4f, 0.0f, -1.4f));
 
 	AbstractModel* am1 = new ModelBall();
-	//AbstractModel* am2 = new ModelBall();
-	//AbstractModel* am3 = new ModelBall();
-	//AbstractModel* am4 = new ModelBall();
+	AbstractModel* am2 = new ModelBall();
+	AbstractModel* am3 = new ModelBall();
+	AbstractModel* am4 = new ModelBall();
 
 	DrawableObject* do1 = new DrawableObject(am1, shader, t1);
-	//DrawableObject* do2 = new DrawableObject(am2, shader, t2);
-	//DrawableObject* do3 = new DrawableObject(am3, shader, t3);
-	//DrawableObject* do4 = new DrawableObject(am4, shader, t4);
+	DrawableObject* do2 = new DrawableObject(am2, shader, t2);
+	DrawableObject* do3 = new DrawableObject(am3, shader, t3);
+	DrawableObject* do4 = new DrawableObject(am4, shader, t4);
 
-	//scene->insertToScene(do2);
+	scene->insertToScene(do2);
 	scene->insertToScene(do1);
-	//scene->insertToScene(do3);
-	//scene->insertToScene(do4);
+	scene->insertToScene(do3);
+	scene->insertToScene(do4);
 
 	/*Shader* shader = new Shader("phongVertex.txt", "phongFragment.txt");
 	Shader* shader2 = new Shader("lambertVertex.txt", "lambertFragment.txt");

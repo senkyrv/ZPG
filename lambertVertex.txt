@@ -11,6 +11,6 @@ void main(void)
 {
 gl_Position = projectionMatrix*viewMatrix*modelMatrix*vec4(position, 1.0);
 worldPos = modelMatrix*vec4(position, 1.0);
-worldNorm = (modelMatrix)*vec4(normal, 1.0);
+worldNorm = vec4(normalize(transpose(inverse(mat3(modelMatrix))) * normal), 1);
 objectColor =  vec3(0.4, 0.6, 0.7);
 }

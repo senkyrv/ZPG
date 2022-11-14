@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ShaderLoader.h"
+#include "PointLight.h"
+#include "DirectionalLight.h"
+
 class Camera;
 class Shader : public ShaderLoader{
 private:

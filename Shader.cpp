@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include "Camera.h"
+#include "glm/gtc/type_ptr.hpp"
 
 void Shader::refreshCamera(Camera* camera) {
     glUseProgram(getShaderProgram());
@@ -18,6 +19,20 @@ void Shader::refreshCamera(Camera* camera) {
     glUniformMatrix4fv(idViewMatrix, 1, GL_FALSE, &camera->getCameraLookAt()[0][0]);
 
     glUniform3fv(glGetUniformLocation(shaderProgramID, "viewPos"), 1, &camera->eye[0]);
+
+
+
+
+    //DirectionalLight* dl = new DirectionalLight(glm::vec3(-3.2f, 3.0f, -3.3f));
+    //glUniform3fv(glGetUniformLocation(this->shaderProgramID, "lights[0].direction"), 1, glm::value_ptr(dl->direction));
+
+    //DirectionalLight* dl = new DirectionalLight(glm::vec3(0.0f, 5.0f, 0.0f));
+    //glUniform3fv(glGetUniformLocation(this->shaderProgramID, "lights[0].position"), 1, glm::value_ptr(dl->direction));
+
+    PointLight* pl = new PointLight(glm::vec3(0.0f, 5.0f, 0.0f));
+    glUniform3fv(glGetUniformLocation(this->shaderProgramID, "lights[0].position"), 1, glm::value_ptr(pl->position));
+
+
     glUseProgram(0);
 }
 
