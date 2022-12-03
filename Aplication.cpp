@@ -9,7 +9,6 @@ Aplication* Aplication::app = nullptr;
 #include <stdlib.h>
 #include <stdio.h>
 
-
 void Aplication::run() {
 
 	setUpWindow();
@@ -71,8 +70,20 @@ void Aplication::run() {
 	//scene->addObject(new DrawableObject(model2, shader, t1));
 	
 	//Phong 1 test + 2 test
-	Shader* shader = new Shader("phongVertex.txt", "phongFragmentLight.txt");
+	Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl", "wooden_fence.png");
+
 	camera->attach(shader);
+
+	Transformation* t = new Transformation();
+	t->scale(10.0f);
+
+	AbstractModel* am = new ModelPlain();
+
+	DrawableObject* dro = new DrawableObject(am, shader, t);
+
+	scene->insertToScene(dro);
+
+	/*
 	Transformation* t1 = new Transformation();
 	Transformation* t2 = new Transformation();
 	Transformation* t3 = new Transformation();
@@ -92,11 +103,11 @@ void Aplication::run() {
 	DrawableObject* do2 = new DrawableObject(am2, shader, t2);
 	DrawableObject* do3 = new DrawableObject(am3, shader, t3);
 	DrawableObject* do4 = new DrawableObject(am4, shader, t4);
-
 	scene->insertToScene(do2);
 	scene->insertToScene(do1);
+
 	scene->insertToScene(do3);
-	scene->insertToScene(do4);
+	scene->insertToScene(do4);*/
 
 	/*Shader* shader = new Shader("phongVertex.txt", "phongFragment.txt");
 	Shader* shader2 = new Shader("lambertVertex.txt", "lambertFragment.txt");
@@ -190,9 +201,11 @@ void Aplication::run() {
 
 	applyCallbacks();
 
+	glEnable(GL_DEPTH_TEST);
+
 	while (!glfwWindowShouldClose(window)) {
 
-		glEnable(GL_DEPTH_TEST);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		scene->draw();
@@ -239,11 +252,11 @@ void Aplication::setUpWindow()
 		exit(EXIT_FAILURE);
 	}
 
-	//version init
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	////version init
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
 	if (!window) {

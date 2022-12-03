@@ -5,11 +5,15 @@
 #include "ShaderLoader.h"
 #include "PointLight.h"
 #include "DirectionalLight.h"
+#include "ReflectorLight.h"
+
 
 class Camera;
 class Shader : public ShaderLoader{
 private:
     GLuint shaderProgramId;
+    GLint imageId = 0;
+    int textureId = 0;
 
 public:
     const char* vertex_shader =
@@ -34,7 +38,10 @@ public:
         "}";
 
     Shader(const char* vertexFile, const char* fragmentFile);
+    Shader(const char* vertexFile, const char* fragmentFile, const char* fileName);
     ~Shader();
     GLuint getShaderProgram();
+    void loadTexture(const char* fileName);
+    void applyTexture();
     void refreshCamera(Camera* camera);
 };
