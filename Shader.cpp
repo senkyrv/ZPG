@@ -31,7 +31,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile) {
 
 }
 
-void Shader::refreshCamera(Camera* camera) {
+void Shader::update(Camera* camera) {
     glUseProgram(getShaderProgram());
     GLint idProjectionMatrix =
         glGetUniformLocation(shaderProgramId, "projectionMatrix");
@@ -51,7 +51,6 @@ void Shader::refreshCamera(Camera* camera) {
     if (lightsIn) {
         addLights();
     }
-
 
     glUseProgram(0);
 }

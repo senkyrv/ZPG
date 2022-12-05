@@ -17,45 +17,73 @@ void Aplication::run() {
 	CallbackController::getInstance()->registerCamera(camera);
 
 
-	//Shader* shader = new Shader("phongVertex.glsl", "phongFragmentLight.glsl");
-	//shader->addLights();
-	////Texture* texture = new Texture("zombie.png", scene->getAndIncTextureId());
+	//Shader* shader = new Shader("phongTextureVertex.glsl", "phongTextureFragment.glsl");
+	////shader->addLights();
+	//Texture* texture = new Texture("model.png", scene->getAndIncTextureId());
 
 	//camera->attach(shader);
 
 	//Transformation* t = new Transformation();
 
 	//t->scale(1.0f);
-	//AbstractModel* am = new ModelAssimp(texture, "zombie.obj");
+	//AbstractModel* am = new ModelAssimp(texture, "model.obj");
 
 	//DrawableObject* dro = new DrawableObject(am, shader, t);
 
 	//scene->insertToScene(dro);
 
-	Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl");
-	Texture* texture = new Texture("watchTower.png" ,scene->getAndIncTextureId());
 
-	camera->attach(shader);
 
-	Transformation* t = new Transformation();
 
-	t->scale(1.0f);
-	AbstractModel* am = new ModelAssimp(texture, "watchTower.obj");
+	//Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl");
+	//Texture* texture = new Texture("watchTower.jpg" ,scene->getAndIncTextureId());
+	//Texture* texture2 = new Texture("grass.png", scene->getAndIncTextureId());
+	//Texture* texture3 = new Texture("model.png", scene->getAndIncTextureId());
+	//Texture* texture4 = new Texture("zombie.png", scene->getAndIncTextureId());
 
-	DrawableObject* dro = new DrawableObject(am, shader, t);
+	//camera->attach(shader);
 
-	scene->insertToScene(dro);
+	//Transformation* t = new Transformation();
+	//t->scale(1.0f);
+	//t->translate(glm::vec3(-7.0f, -0.7f, 0.0f));
+	//Transformation* t2 = new Transformation();
+	//t2->scale(20.0f);
+	//Transformation* t3 = new Transformation();
+	//t3->scale(1.0f);
+	//t3->translate(glm::vec3(10.0f, 0.0f, 3.0f));
+
+	//AbstractModel* am = new ModelAssimp(texture, "watchTower.obj");
+	//AbstractModel* plain = new ModelPlain(texture2);
+	//AbstractModel* house = new ModelAssimp(texture3, "model.obj");
+	//AbstractModel* zombie = new ModelAssimp(texture4, "zombie.obj");
+
+
+	//DrawableObject* dro = new DrawableObject(am, shader, t);
+
+	//scene->insertToScene(new DrawableObject(plain, shader, t2));
+	//scene->insertToScene(new DrawableObject(house, shader, t3));
+	//scene->insertToScene(dro);
+
+	//for (int i = 0; i < 30; i++) {
+	//	Transformation* t4 = new Transformation();
+	//	float x = rand() % 31 - 15;
+	//	float z = rand() % 31 - 15;
+	//	t4->translate(glm::vec3(x, 0, z));
+	//	t4->scale(1.5f);
+	//	t4->rotate(15 * i);
+	//	scene->insertToScene(new DrawableObject(zombie, shader, t4));
+	//}
 
 	//// SKYBOX TEST
 	//sceneSkyboxTest(camera);
 
 
-	////PHONG TEST
+	//PHONG TEST
 
-	//Shader* shader2 = new Shader("phongVertex.glsl", "phongFragmentLight.glsl");
+	Shader* shader2 = new Shader("phongVertex.glsl", "phongFragment.glsl");
 	//shader2->addLights();
-	//camera->attach(shader2);
-	//scenePhongTest(shader2);
+	camera->attach(shader2);
+	scenePhongTest(shader2);
 
 
 

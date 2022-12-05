@@ -7,9 +7,10 @@
 #include "DirectionalLight.h"
 #include "ReflectorLight.h"
 #include "Texture.h"
+#include "Observer.h"
 
 class Camera;
-class Shader : public ShaderLoader{
+class Shader : public ShaderLoader, public Observer{
 private:
     GLuint shaderProgramId;
     bool lightsIn = false;
@@ -18,7 +19,7 @@ private:
 
 
 public:
-    DirectionalLight* dl = new DirectionalLight(glm::vec3(-3.2f, 3.0f, -3.3f));
+    DirectionalLight* dl = new DirectionalLight(glm::vec3(3.2f, -4.0f, 3.3f));
     //bool isTextured = false;
     const char* vertex_shader =
         "#version 330\n"
@@ -48,6 +49,6 @@ public:
     GLuint getShaderProgram();
     //void loadTexture(const char* fileName);
     //void applyTexture();
-    void refreshCamera(Camera* camera);
+    void update(Camera* camera)override;
     void addLights();
 };

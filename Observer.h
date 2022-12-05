@@ -1,5 +1,10 @@
-class Observer {
+#pragma once
+
+class Camera;
+class Observer
+{
 public:
-	virtual ~Observer() {};
-	virtual void update() = 0;
+    Observer() {};
+    ~Observer() {};
+    virtual void update(Camera* camera) = 0;
 };

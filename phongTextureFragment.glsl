@@ -1,10 +1,11 @@
 #version 400
 in vec4 worldPos;
 in vec4 worldNorm;
+in vec2 uvc;
 //in vec3 objectColor;
 out vec4 out_color;
 uniform vec3 viewPos;
-
+uniform sampler2D textureUnitID;
 void main(void)
 {
     float specularStrength = 1.0;
@@ -35,5 +36,5 @@ void main(void)
 
     specular = specularStrength * spec * vec4(lightColor,1); 
 
-    out_color = (ambient + diffuse + specular);
+    out_color = (ambient * texture(textureUnitID, uvc) + diffuse * texture(textureUnitID, uvc) + specular);
 }

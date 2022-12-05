@@ -1,9 +1,16 @@
+#pragma once
+#include <list>
 #include "Observer.h"
+#include <iostream>
 
+class Observer;
+class Camera;
 class Subject {
+protected:
+	std::list<Observer*> observers;
+
 public:
-	virtual ~Subject() {};
-	virtual void attach(Observer* observer) = 0;
-	virtual void detach(Observer* observer) = 0;
-	virtual void notify() = 0;
+	void attach(Observer* ob);
+	void detach(Observer* ob);
+	void notify(Camera* camera);
 };

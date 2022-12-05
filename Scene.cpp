@@ -35,7 +35,7 @@ void Scene::removeFromScene(int objectId)
             }
             counter++;
         }
-
+        
     }
 
 }

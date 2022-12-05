@@ -11,7 +11,6 @@ struct Light {
 
 uniform Light lights[MAX_LIGHTS];
 
-
 in vec4 worldPos;
 in vec4 worldNorm;
 in vec3 objectColor;
@@ -59,32 +58,6 @@ vec4 calculatePointLight(Light light)
 	return (ambient + diffuse + specular);
 }
 
-vec4 calculateRefLight(Light light)
-{
-	vec4 diffuse = vec4(0.3, 0.0, 0.0, 0.0);
-	vec4 specular = vec4(0.0, 0.0, 0.0, 0.0);
-
-	vec3 lightVector = normalize(light.position - worldPos.xyz );
-
-	float theta = dot(lightVector, normalize(-light.direction));
-
-	if(theta > light.reflectionRadius)
-	{	
-		float dist = length(light.position - worldPos.xyz );
-		float attenuation = 1.0 / (1.0 + 0.1 * dist + 0.01 * (dist * dist) );
-
-		float dot_product = max(dot(worldNorm.xyz, lightVector), 0.0);
-
-		float s = 0.8;
-		vec3 viewVector = normalize(viewPos - worldPos.xyz );
-		float spec = pow(max(dot(viewVector, reflect(-lightVector, worldNorm.xyz)), 0.0), 40);
-
-		diffuse = dot_product * vec4(0.385, 0.647, 0.812, 1.0) * attenuation;
-		specular = s * spec * vec4(0.385, 0.647, 0.812, 1.0);
-	}
-
-	return (diffuse + specular);
-}
 
 void main(void)
 {
