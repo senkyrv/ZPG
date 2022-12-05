@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <vector>
 #include "Camera.h"
+#include "Aplication.h"
 
 class CallbackController {
 private:
@@ -18,6 +19,7 @@ public:
 
     static CallbackController* getInstance();
     ~CallbackController();
+    void buttonCallback(GLFWwindow* window, int button, int action, int mode);
     void cursorCallback(GLFWwindow* window, double mouseXPos, double mouseYPos);
     void processInput(GLFWwindow* window, int key);
     void windowResizeCallback(GLFWwindow* window, int width, int height);

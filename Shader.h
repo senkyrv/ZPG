@@ -6,16 +6,20 @@
 #include "PointLight.h"
 #include "DirectionalLight.h"
 #include "ReflectorLight.h"
-
+#include "Texture.h"
 
 class Camera;
 class Shader : public ShaderLoader{
 private:
     GLuint shaderProgramId;
-    GLint imageId = 0;
-    int textureId = 0;
+    bool lightsIn = false;
+    //GLint imageId = 0;
+    //int textureId = 0;
+
 
 public:
+    DirectionalLight* dl = new DirectionalLight(glm::vec3(-3.2f, 3.0f, -3.3f));
+    //bool isTextured = false;
     const char* vertex_shader =
         "#version 330\n"
         "layout(location=0) in vec4 vp;"
@@ -38,10 +42,12 @@ public:
         "}";
 
     Shader(const char* vertexFile, const char* fragmentFile);
-    Shader(const char* vertexFile, const char* fragmentFile, const char* fileName);
+    //Shader(const char* vertexFile, const char* fragmentFile, const char* fileName);
+    //Shader(const char* vertexFile, const char* fragmentFile, const char* file_xpos, const char* file_xneg, const char* file_ypos, const char* file_yneg, const char* file_zpos, const char* file_zneg);
     ~Shader();
     GLuint getShaderProgram();
-    void loadTexture(const char* fileName);
-    void applyTexture();
+    //void loadTexture(const char* fileName);
+    //void applyTexture();
     void refreshCamera(Camera* camera);
+    void addLights();
 };

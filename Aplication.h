@@ -19,7 +19,11 @@
 #include "ModelGift.h"
 #include "ModelTree.h"
 #include "ModelPlain.h"
+#include "Texture.h"
+#include "ModelSky.h"
+#include "ModelAssimp.h"
 
+class Scene;
 class Aplication
 {
 private:
@@ -27,6 +31,7 @@ private:
 	static Aplication *app;		
 	GLFWwindow* window;
 	Scene* scene;
+	Camera* camera = new Camera();
 
 public:
 
@@ -36,5 +41,11 @@ public:
 	void setUpWindow();
 	void run();
 	void applyCallbacks();
+	void scenePhongTest(Shader* shader);
+	void sceneForest(Camera* camera);
+	void sceneMultipleObjectAndShaderTest(Camera* camera);
+	void sceneSkyboxTest(Camera* camera);
+	Scene* getScene();
+	glm::vec2 windowSize = { 800, 600 };
 };
 

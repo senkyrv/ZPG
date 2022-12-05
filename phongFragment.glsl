@@ -17,7 +17,8 @@ void main(void)
 
     vec4 diffuse = dot_product * vec4(lightColor,1);
 
-    vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
+    //vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
+    vec4 ambient = vec4( 0.1, 0.4, 0.2, 1.0);
     
     vec4 viewDir = normalize(vec4(viewPos, 1) - worldPos);
     vec4 reflectDir = reflect(-lightDir, worldNorm);

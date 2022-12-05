@@ -1,6 +1,4 @@
 ﻿#include "Aplication.h"
-
-Aplication* Aplication::app = nullptr;
 #include <glm/vec3.hpp> 
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
@@ -15,193 +13,67 @@ void Aplication::run() {
 	scene = new Scene();
 
 	//setup camera
-	Camera* camera = new Camera();
+	//Camera* camera = new Camera();
 	CallbackController::getInstance()->registerCamera(camera);
 
 
-	// Triangles
-	/*std::vector<ModelData> triangle = {
-    { { -0.1f, 0.5f, 0.0f, 1 }, { 1, 0, 0, 1 } },
-    { { -0.9f, -0.5f, 0.0f, 1 }, { 0, 1, 0, 1 } },
-    { { -0.1f, -0.5f, 0.0f, 1 }, { 0, 0, 1, 1 } },
-	};
+	//Shader* shader = new Shader("phongVertex.glsl", "phongFragmentLight.glsl");
+	//shader->addLights();
+	////Texture* texture = new Texture("zombie.png", scene->getAndIncTextureId());
 
-	std::vector<ModelData> triangle2 = {
-	{ { 0.1f, 0.5f, 0.0f, 1 }, { 1, 1, 0, 1 } },
-	{ { 0.9f, -0.5f, 0.0f, 1 }, { 0, 1, 1, 1 } },
-	{ { 0.1f, -0.5f, 0.0f, 1 }, { 1, 0, 1, 1 } },
-	};
+	//camera->attach(shader);
 
-	Model* model = new Model(triangle);
-	Model* model2 = new Model(triangle2);
+	//Transformation* t = new Transformation();
 
-	Transformation* t1 = new Transformation();
-	Transformation* t2 = new Transformation();
+	//t->scale(1.0f);
+	//AbstractModel* am = new ModelAssimp(texture, "zombie.obj");
 
-	t1->scale(0.5f);
+	//DrawableObject* dro = new DrawableObject(am, shader, t);
 
-	t2->scale(0.5f);
-	t2->translate(glm::vec3(0.0f, 1.0f, 0.0f)); */
+	//scene->insertToScene(dro);
 
-	
-
-	//Shader* shader2 = new Shader("lambertVertex.txt", "lambertFragment.txt");
-	
-
-
-
-	
-	//camera->registerShader(shader);
-	//shader->loadShader("lambertVertex.txt", "lambertFragment.txt");
-	//shader2->loadShader("originalVertex.txt", "originalFragment.txt");
-	
-	//Shader* shader = new Shader("originalVertex.txt", "originalFragment.txt");
-	//shader->loadShader("shaders/originalVertex.txt", "shaders/originalFragment.txt");
-	
-	//camera->attacg(shader2);
-
-
-	
-
-
-	//DrawableObject* do3 = new DrawableObject(mb, shader, t2);
-	//scene->addObject(do3);
-	//scene->addObject(new DrawableObject(model, shader, t2));
-	//scene->addObject(new DrawableObject(model2, shader, t1));
-	
-	//Phong 1 test + 2 test
-	Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl", "wooden_fence.png");
+	Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl");
+	Texture* texture = new Texture("watchTower.png" ,scene->getAndIncTextureId());
 
 	camera->attach(shader);
 
 	Transformation* t = new Transformation();
-	t->scale(10.0f);
 
-	AbstractModel* am = new ModelPlain();
+	t->scale(1.0f);
+	AbstractModel* am = new ModelAssimp(texture, "watchTower.obj");
 
 	DrawableObject* dro = new DrawableObject(am, shader, t);
 
 	scene->insertToScene(dro);
 
-	/*
-	Transformation* t1 = new Transformation();
-	Transformation* t2 = new Transformation();
-	Transformation* t3 = new Transformation();
-	Transformation* t4 = new Transformation();
-
-	t1->translate(glm::vec3(1.4f, 0.0f, 1.4f));
-	t2->translate(glm::vec3(-1.4f, 0.0f, 1.4f));
-	t3->translate(glm::vec3(1.4f, 0.0f, -1.4f));
-	t4->translate(glm::vec3(-1.4f, 0.0f, -1.4f));
-
-	AbstractModel* am1 = new ModelBall();
-	AbstractModel* am2 = new ModelBall();
-	AbstractModel* am3 = new ModelBall();
-	AbstractModel* am4 = new ModelBall();
-
-	DrawableObject* do1 = new DrawableObject(am1, shader, t1);
-	DrawableObject* do2 = new DrawableObject(am2, shader, t2);
-	DrawableObject* do3 = new DrawableObject(am3, shader, t3);
-	DrawableObject* do4 = new DrawableObject(am4, shader, t4);
-	scene->insertToScene(do2);
-	scene->insertToScene(do1);
-
-	scene->insertToScene(do3);
-	scene->insertToScene(do4);*/
-
-	/*Shader* shader = new Shader("phongVertex.txt", "phongFragment.txt");
-	Shader* shader2 = new Shader("lambertVertex.txt", "lambertFragment.txt");
-	camera->attach(shader);
-	camera->attach(shader2);
-
-	Transformation* t1 = new Transformation();
-	Transformation* t2 = new Transformation();
-
-	t1->translate(glm::vec3(1.4f, 0.0f, 1.4f));
-	t2->translate(glm::vec3(5.4f, 0.0f, 1.4f));
+	//// SKYBOX TEST
+	//sceneSkyboxTest(camera);
 
 
-	AbstractModel* am1 = new ModelGift();
-	AbstractModel* am2 = new ModelGift();
-	scene->insertToScene(new DrawableObject(am1, shader, t1));
-	scene->insertToScene(new DrawableObject(am2, shader2, t2));*/
-	/*
-	Shader* shader = new Shader("originalVertex.txt", "originalFragment.txt");
-	camera->attach(shader);
+	////PHONG TEST
 
-	AbstractModel* am1 = new ModelPlain();
-	Transformation* t1 = new Transformation();
-
-	t1->scale(15.0f);
-	t1->translate(glm::vec3(0, 0, 0));
-
-	scene->insertToScene(new DrawableObject(am1, shader, t1));
-
-	AbstractModel* tree = new ModelTree();
-	AbstractModel* suzi = new ModelSuzi();
-	AbstractModel* sphere = new ModelBall();
-	AbstractModel* gift = new ModelGift();
-	AbstractModel* bush = new ModelBush();
+	//Shader* shader2 = new Shader("phongVertex.glsl", "phongFragmentLight.glsl");
+	//shader2->addLights();
+	//camera->attach(shader2);
+	//scenePhongTest(shader2);
 
 
 
+	//FOREST SCENE
+	//sceneForest(camera);
 
-	Shader* shader2 = new Shader("lambertVertex.txt", "lambertFragment.txt");
-	camera->attach(shader2);
 
-	//h-d+1 + d
-	for (int i = 0; i < 20; i++) {
-		Transformation* t2 = new Transformation();
-		float x = rand() % 31 - 15;
-		float z = rand() % 31 - 15;
-		t2->translate(glm::vec3(x, 0, z));
-		t2->scale(0.5);
-		scene->insertToScene(new DrawableObject(tree, shader2, t2));
-	}
-	
-	for (int i = 0; i < 20; i++) {
-		Transformation* t2 = new Transformation();
-		float x = rand() % 31 - 15;
-		float z = rand() % 31 - 15;
-		t2->translate(glm::vec3(x, 0.3, z));
-		t2->scale(0.3);
-		scene->insertToScene(new DrawableObject(sphere, shader2, t2));
-	}
 
-	Shader* shader3 = new Shader("phongVertex.txt", "phongFragment.txt");
-	camera->attach(shader3);
-
-	for (int i = 0; i < 20; i++) {
-		Transformation* t2 = new Transformation();
-		float x = rand() % 31 - 15;
-		float z = rand() % 31 - 15;
-		t2->translate(glm::vec3(x, 0.3, z));
-		t2->scale(0.3);
-		scene->insertToScene(new DrawableObject(suzi, shader3, t2));
-	}
-	for (int i = 0; i < 60; i++) {
-		Transformation* t2 = new Transformation();
-		float x = rand() % 31 - 15;
-		float z = rand() % 31 - 15;
-		t2->translate(glm::vec3(x, 0, z));
-		t2->scale(1.2);
-		scene->insertToScene(new DrawableObject(bush, shader3, t2));
-	}
-	for (int i = 0; i < 20; i++) {
-		Transformation* t2 = new Transformation();
-		float x = rand() % 31 - 15;
-		float z = rand() % 31 - 15;
-		t2->translate(glm::vec3(x, 0, z));
-		t2->scale(1.8);
-		scene->insertToScene(new DrawableObject(gift, shader3, t2));
-	}*/
-
+	// TEST FOR MULTIPLE SHADERS AND 100+ OBJECTS, NEED TO EDIT!!
+	//multipleObjectAndShaderTest(camera);
 
 
 
 	applyCallbacks();
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	while (!glfwWindowShouldClose(window)) {
 
@@ -232,6 +104,13 @@ Aplication::~Aplication()
 }
 
 void Aplication::applyCallbacks() {
+
+	glfwSetMouseButtonCallback(
+		window, [](GLFWwindow* window, int button, int action, int mods) -> void {
+			CallbackController::getInstance()->buttonCallback(window, button,
+				action, mods);
+		});
+
 	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double mouseXPos, double mouseYPos) -> void {
 		CallbackController::getInstance()->cursorCallback(window, mouseXPos, mouseYPos);
 		});
@@ -244,6 +123,8 @@ void Aplication::applyCallbacks() {
 			CallbackController::getInstance()->windowResizeCallback(window, width, height);
 		});
 }
+
+
 
 void Aplication::setUpWindow()
 {
@@ -258,22 +139,16 @@ void Aplication::setUpWindow()
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+	window = glfwCreateWindow(windowSize.x, windowSize.y, "ZPG", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	glfwSetCursorPosCallback(
-		window,
-		[](GLFWwindow* window, double mouseXPos, double mouseYPos) -> void {
-			CallbackController::getInstance()->cursorCallback(window, mouseXPos,
-				mouseYPos);
-		});
 
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 
-	CallBack* callBackObject = new CallBack(window);
+	//CallBack* callBackObject = new CallBack(window);
 
 	// start GLEW extension handler
 	glewExperimental = GL_TRUE;
@@ -294,3 +169,172 @@ void Aplication::setUpWindow()
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 }
+
+void Aplication::scenePhongTest(Shader* shader)
+{
+	//Phong 1 test + 2 test
+
+	Transformation* t1 = new Transformation();
+	Transformation* t2 = new Transformation();
+	Transformation* t3 = new Transformation();
+	Transformation* t4 = new Transformation();
+
+	t1->translate(glm::vec3(1.4f, 0.0f, 1.4f));
+	t2->translate(glm::vec3(-1.4f, 0.0f, 1.4f));
+	t3->translate(glm::vec3(1.4f, 0.0f, -1.4f));
+	t4->translate(glm::vec3(-1.4f, 0.0f, -1.4f));
+
+	AbstractModel* am1 = new ModelBall();
+	AbstractModel* am2 = new ModelBall();
+	AbstractModel* am3 = new ModelBall();
+	AbstractModel* am4 = new ModelBall();
+
+	DrawableObject* do1 = new DrawableObject(am1, shader, t1);
+	DrawableObject* do2 = new DrawableObject(am2, shader, t2);
+	DrawableObject* do3 = new DrawableObject(am3, shader, t3);
+	DrawableObject* do4 = new DrawableObject(am4, shader, t4);
+
+	scene->insertToScene(do2);
+	scene->insertToScene(do1);
+
+	scene->insertToScene(do3);
+	scene->insertToScene(do4);
+}
+
+void Aplication::sceneForest(Camera* camera)
+{
+	scene->clickActionAllowed = true;
+
+	Shader* shader = new Shader("textureVertex.glsl", "textureFragment.glsl");
+	Texture* texture = new Texture("grass.png", scene->getAndIncTextureId());
+	camera->attach(shader);
+
+	Transformation* t = new Transformation();
+	t->scale(15.0f);
+	t->translate(glm::vec3(0.0f, 0.0f, 0.0f));
+
+	AbstractModel* am = new ModelPlain(texture);
+
+	DrawableObject* dro = new DrawableObject(am, shader, t);
+
+	scene->insertToScene(dro);
+
+	AbstractModel* tree = new ModelTree();
+	AbstractModel* suzi = new ModelSuzi();
+	AbstractModel* sphere = new ModelBall();
+	AbstractModel* gift = new ModelGift();
+	AbstractModel* bush = new ModelBush();
+
+	Shader* shader2 = new Shader("phongVertex.glsl", "phongFragment.glsl");
+	camera->attach(shader2);
+
+	//h-d+1 + d
+	for (int i = 0; i < 20; i++) {
+		Transformation* t2 = new Transformation();
+		float x = rand() % 31 - 15;
+		float z = rand() % 31 - 15;
+		t2->translate(glm::vec3(x, 0, z));
+		t2->scale(0.5);
+		scene->insertToScene(new DrawableObject(tree, shader2, t2));
+	}
+
+	for (int i = 0; i < 20; i++) {
+		Transformation* t2 = new Transformation();
+		float x = rand() % 31 - 15;
+		float z = rand() % 31 - 15;
+		t2->translate(glm::vec3(x, 0.0, z));
+		t2->scale(3.0f);
+		scene->insertToScene(new DrawableObject(gift, shader2, t2));
+	}
+}
+void Aplication::sceneMultipleObjectAndShaderTest(Camera* camera)
+{
+	Shader* shader2 = new Shader("textureVertex.glsl", "textureFragment.glsl");
+	Texture* texture2 = new Texture("wooden_fence.png", scene->getAndIncTextureId());
+
+	camera->attach(shader2);
+
+	Transformation* t2 = new Transformation();
+	t2->scale(20.0f);
+
+	AbstractModel* am2 = new ModelPlain(texture2);
+
+	DrawableObject* dro2 = new DrawableObject(am2, shader2, t2);
+
+	scene->insertToScene(dro2);
+
+
+	Shader* shader3 = new Shader("phongVertex.glsl", "phongFragment.glsl");
+	Shader* shader4 = new Shader("originalVertex.glsl", "originalFragment.glsl");
+	Shader* shader5 = new Shader("lambertVertex.glsl", "lambertFragment.glsl");
+	camera->attach(shader3);
+	camera->attach(shader4);
+	camera->attach(shader5);
+	AbstractModel* suzi = new ModelSuzi();
+	AbstractModel* bush = new ModelBush();
+	AbstractModel* gift = new ModelGift();
+
+	for (int i = 0; i < 20; i++) {
+		Transformation* t2 = new Transformation();
+		float x = rand() % 31 - 15;
+		float z = rand() % 31 - 15;
+		t2->translate(glm::vec3(x, 0.3, z));
+		t2->scale(0.02 * i);
+		scene->insertToScene(new DrawableObject(suzi, shader3, t2));
+	}
+	for (int i = 0; i < 60; i++) {
+		Transformation* t2 = new Transformation();
+		float x = rand() % 31 - 15;
+		float z = rand() % 31 - 15;
+		t2->translate(glm::vec3(x, 0, z));
+		t2->scale(0.1 * i);
+		scene->insertToScene(new DrawableObject(bush, shader4, t2));
+	}
+	for (int i = 0; i < 20; i++) {
+		Transformation* t2 = new Transformation();
+		float x = rand() % 31 - 15;
+		float z = rand() % 31 - 15;
+		t2->translate(glm::vec3(x, 0, z));
+		t2->scale(0.4 * i);
+		scene->insertToScene(new DrawableObject(gift, shader5, t2));
+	}
+}
+void Aplication::sceneSkyboxTest(Camera* camera)
+{
+	Shader* shader = new Shader("skyboxVertex.glsl", "skyboxFragment.glsl");
+	Texture* texture = new Texture("posx.jpg", "negx.jpg", "posy.jpg", "negy.jpg", "posz.jpg", "negz.jpg", scene->getAndIncTextureId());
+
+	camera->attach(shader);
+
+	Transformation* t = new Transformation();
+	t->scale(10.0f);
+	t->translate(glm::vec3(0.0f, -0.1f, 0.0f));
+
+	AbstractModel* am = new ModelSky(texture);
+
+	DrawableObject* dro = new DrawableObject(am, shader, t);
+
+	scene->insertToScene(dro);
+
+
+	Shader* shader2 = new Shader("textureVertex.glsl", "textureFragment.glsl");
+	Texture* texture2 = new Texture("grass.png", scene->getAndIncTextureId());
+
+	camera->attach(shader2);
+
+
+	Transformation* t2 = new Transformation();
+	t2->scale(10.0f);
+	t2->translate(glm::vec3(0.0f, -0.1f, 0.0f));
+
+	AbstractModel* am2 = new ModelPlain(texture2);
+
+	DrawableObject* dro2 = new DrawableObject(am2, shader2, t2);
+
+	scene->insertToScene(dro2);
+}
+Scene* Aplication::getScene()
+{
+	return scene;
+}
+Aplication* Aplication::app = nullptr;

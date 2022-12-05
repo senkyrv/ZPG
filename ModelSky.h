@@ -2,20 +2,19 @@
 #include <GL/glew.h>
 #include <glm/vec4.hpp> 
 #include <vector>
-#include "plain.h"
+#include "skycube.h"
 #include "AbstractModel.h"
+#include "Texture.h"
 
-
-class ModelPlain : public AbstractModel
+class ModelSky : public AbstractModel
 {
 
 public:
 	Texture* texture;
-	ModelPlain();
-	ModelPlain(Texture* texture);// constructor for model with texture, yet just enter any int, NEED TO EDIT!
-	~ModelPlain();
+	ModelSky(Texture* texture);
+	~ModelSky();
 	void draw(Shader* shader, Transformation* transformation) override;
 
-
 };
+
 

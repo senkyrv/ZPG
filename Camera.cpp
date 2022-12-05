@@ -51,7 +51,7 @@ void Camera::refreshMousePosition(float newX, float newY) {
         pitch = -89.0f;
     }
 
-
+    // prevod bodu na sfericke souradnice
     glm::vec3 dir;
     dir.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     dir.y = sin(glm::radians(pitch));
